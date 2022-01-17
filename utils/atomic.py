@@ -34,7 +34,21 @@ class Atomic:
         print(x)
         return x
 
+    def check_factor(self):
+        factors = [(2*k+1) for k in range(10)]
+        print(factors)
+        for i in range(1,int(len(factors)/2)):
+            for ele in factors:
+                x = (2 * i + 1)
+                if ele % x == 0:
+                    print(f"{2 * i + 1} is factor")
+                    continue
+                else:
+                    print(f"{2 * i + 1} is not factor")
+                continue
+
     # ====================================DONE===========================================
+
     def index_of_largest_divisor(self):
         x = self.e_to_odd(self.number)
         n_index = self.e_to_odd(math.floor(x/3))
@@ -43,7 +57,41 @@ class Atomic:
         print(f"The largest divisor is ==== {y}")
         return y
 
+    # ============REMOVE FACTORS FROM A LIST ==============================================
+
+    def remove_factors_in_list(self, n):
+        full = n
+        result = full.copy()
+        for k in full:
+            for j in full[full.index(k) + 1:len(full) - 2]:
+                if j % k == 0:
+                    print(f"{j} is a multiple of {k}")
+                    result.remove(k)
+                    break
+        print(result)
+        return result
+
+    # ========DECOMPOSED LCM OF A LIST===================================================
+
+    def decomposed_lcm_of_list(self,full):
+        final_lcm = 1
+        list_len = len(full)
+        if list_len % 2 == 1:
+            for k in range(0, list_len - 1, 2):
+                current_lcm = int((full[k] * full[k + 1]) // math.gcd(full[k], full[k + 1]))
+                print(f"current== {current_lcm}")
+                final_lcm = int((current_lcm * final_lcm) // math.gcd(current_lcm, final_lcm))
+                print(f"final lcm === {final_lcm}")
+            return int(final_lcm * full[-1] // math.gcd(final_lcm, full[-1]))
+        for k in range(0, list_len, 2):
+            current_lcm = int((full[k] * full[k + 1]) // math.gcd(full[k], full[k + 1]))
+            print(f"current == {current_lcm}")
+            final_lcm = int((current_lcm * final_lcm) // math.gcd(current_lcm, final_lcm))
+            print(f"final lcm === {final_lcm}")
+        return final_lcm
+
     # ===================================DONE=============================================
+
     def index_of_right_junk(self):
         x = self.index_of_largest_divisorr - self.perfect_numbers_mag
         self.right_junk_index = int(x)
